@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.test</groupId>
-	<artifactId>etqt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>uk.ic.dice.qt</groupId>
+	<artifactId>qt-lib</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>etqt</name>
+	<name>qt-lib</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -15,13 +15,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-
+	
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
@@ -51,7 +45,6 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
-			<scope>provided</scope>
 		</dependency>
 
 

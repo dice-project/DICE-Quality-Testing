@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.bson.conversions.Bson;
-
 import uk.ic.dice.qt.QTLoadInjector;
 import uk.ic.dice.qt.spout.RateSpout;
 import uk.ic.dice.qt.spout.RateSpout.ArrivalMode;
