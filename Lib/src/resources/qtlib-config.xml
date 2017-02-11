@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="spout.type">uk.ic.dice.qt.spout.RateSpout</entry>
+<entry key="spout.name">word-spout</entry>
+<entry key="file.name">rates.csv</entry>
+<entry key="spout.parallelism">1</entry>
+<entry key="spout.task">1</entry>
+<entry key="spout.uniformDivided">false</entry>
+<entry key="spout.uniformCut">10</entry>
+<entry key="spout.exponentialDivided">false</entry>
+<entry key="spout.exponentialScale">300</entry>
+<entry key="spout.exponentialRange">10</entry>
+</properties>
