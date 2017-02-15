@@ -9,7 +9,7 @@ QT-GEN is a tool for generation of traces that are statistically similar to a gi
 
 QT-LIB is instead a Java library for workload injection in Apache Storm. The library allows a programmer to install a custom spout that can be used to send random messages or replay a JSON or BSON trace according to user specified rates or time-varying counts.
 
-Please check out the [wiki](https://github.com/dice-project/DICE-Enhancement-FG/wiki) for installation and user manuals.
+Please check out the [wiki](https://github.com/dice-project/DICE-Quality-Testing/wiki) for installation and user manuals.
 
 ##License##
 
