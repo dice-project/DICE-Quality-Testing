@@ -28,7 +28,7 @@ public class ExclamationTopology {
 		double maxBoltCapacity = 1.0;
 		double curMaxBoltCapacity = 0.0;
 
-		int numExperiments = 4;
+		int numExperiments = 1;
 		for (int topologyId=1; topologyId<=numExperiments; topologyId++) {
 
 			/* Storm topology builder */
@@ -66,6 +66,7 @@ public class ExclamationTopology {
 
 			DataMode dm = DataMode.ParseJSON;
 			qtSpout.setDataMode(dm);
+			qtSpout.setBinaryBDoc(false);
 			switch (dm) {
 			case ParseJSON :{
 				qtSpout.setDataFile("test.json");
@@ -95,35 +96,33 @@ public class ExclamationTopology {
 
 			/* Let the topology run for the specified time then kill it*/
 			int topologyDuration = 600;
-			/*try{
+			try{
 				Thread.sleep(topologyDuration*1000);
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
 			}
 
-			/* Kill the last topology 
+			/* Kill the last topology */ 
 			Map stormConf = Utils.readStormConfig();
 			Client client = NimbusClient.getConfiguredClient(stormConf).getClient();
 			KillOptions killOpts = new KillOptions();
-			client.killTopologyWithOpts("topology-qt", killOpts); //provide topology name
-			*/
+			client.killTopologyWithOpts("topology-qt", killOpts); //provide topology name			
 
-			/* time before running the next topology 
+			/* time before running the next topology */ 
 			int topologySleep = 30;
 			try{
 				Thread.sleep(topologySleep*1000);
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
-			}
-			*/
+			}			
 
 			/* determine maximal bolt capacity */
 			timeStampDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			timeStampTime = new SimpleDateFormat("HH:mm:ss.000").format(new Date());
 			String tEnd = timeStampDate + "T"+ timeStampTime + "Z";		
 			int maxDMONRecords = 100;
-			String DMONurl = "http://109.231.122.229:5001";
-			//curMaxBoltCapacity = DMONBoltCapacityMonitor.getDMONkey(DMONurl, tStart, tEnd, maxDMONRecords);
+			String DMONurl = "http://109.231.122.229:5001"; // to configure as needed
+			curMaxBoltCapacity = DMONBoltCapacityMonitor.getDMONkey(DMONurl, tStart, tEnd, maxDMONRecords);
 			System.out.println("Topology: " + topologyId + " Start: " + tStart + " End: " + tEnd + " Current Bolt Capacity: "+curMaxBoltCapacity);
 			if (curMaxBoltCapacity>=maxBoltCapacity) {
 				System.out.println("Current bolt capacity is "+ curMaxBoltCapacity + " and exceeds the maximum bolt capacity: " + maxBoltCapacity + " STOPPING experiment.");

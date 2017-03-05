@@ -46,6 +46,7 @@ public class RateSpout extends BaseRichSpout{
 	int cntCursor;
 	long lastEmit;
 	long lastTimestamp;
+	boolean binaryBDoc;
 	ArrivalMode arvMode;
 	DataMode dataMode;
 	String arvFile;
@@ -53,15 +54,18 @@ public class RateSpout extends BaseRichSpout{
 	String timeField;
 	int dataVol;
 	double rateScaler;
+	
 	private static final Logger LOG = LoggerFactory.getLogger(RateSpout.class);
 
 	/* initialize spout for manual configuration */
 	public RateSpout() {
+		setBinaryBDoc(false);
 		setRateScaler(1.0);
 	}
 
 	/* send 1k of random text at inter-arrival times specified in the given file */
 	public RateSpout(String _arvfname) {
+		setBinaryBDoc(false);
 		setArrivalMode(ArrivalMode.RandIat);
 		setArrivalFile( _arvfname);
 		setDataMode(DataMode.ParseJSON);
@@ -71,6 +75,7 @@ public class RateSpout extends BaseRichSpout{
 
 	/* send specified amount of random text at inter-arrival times specified in the given file */
 	public RateSpout(String _arvfname, int _datavol) {
+		setBinaryBDoc(false);
 		setArrivalMode(ArrivalMode.RandIat);
 		setArrivalFile( _arvfname);
 		setDataMode(DataMode.RandText);
@@ -83,6 +88,10 @@ public class RateSpout extends BaseRichSpout{
 	
 	public void setTimeField(String _field) {
 		this.timeField = _field;
+	}
+	
+	public void setBinaryBDoc(boolean val) {
+		binaryBDoc = val;
 	}
 	
 	public String getTimeField() {
@@ -322,7 +331,11 @@ public class RateSpout extends BaseRichSpout{
 			Document bDoc = new Document();
 			bDoc = Document.parse(string_json);
 			LOG.info("BSON document parsed from JSON: " + bDoc.toString());
-			collector.emit(tuple(bDoc.toString()),msgId);
+			if (binaryBDoc) {
+				collector.emit(tuple(bDoc),msgId);
+			} else {
+				collector.emit(tuple(bDoc.toString()),msgId);
+			}
 		}
 		break;
 		case ParseTimedJSON: {			
@@ -344,7 +357,11 @@ public class RateSpout extends BaseRichSpout{
 			LOG.debug("new timestamp: " + bDoc.getLong(getTimeField()) + " last timestamp: " + lastTimestamp + " target iat: " + targetIat);
 			Utils.sleep((long)((double) targetIat/rateScaler));
 			lastTimestamp = bDoc.getLong(getTimeField());
-			collector.emit(tuple(bDoc.toString()),msgId);
+			if (binaryBDoc) {
+				collector.emit(tuple(bDoc),msgId);				
+			} else {
+				collector.emit(tuple(bDoc.toString()),msgId);
+			}
 		}
 		break;
 		}
