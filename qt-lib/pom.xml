@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.test</groupId>
-	<artifactId>etqt</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>qt-lib</groupId>
+	<artifactId>qt-lib</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>etqt</name>
+	<name>qt-lib</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -50,7 +50,7 @@
 			<groupId>org.apache.storm</groupId>
 			<artifactId>storm-core</artifactId>
 			<version>1.0.3</version>
-		<scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -71,8 +71,8 @@
     			<artifactId>json</artifactId>
     			<version>20140107</version>
 		</dependency>	
-
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -106,7 +106,6 @@
 				</includes>
 			</resource>
 		</resources>
-
 		<plugins>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
@@ -130,7 +129,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -140,7 +138,6 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
