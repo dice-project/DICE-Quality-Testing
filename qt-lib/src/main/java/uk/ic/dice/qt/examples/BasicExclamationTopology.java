@@ -9,10 +9,10 @@ import uk.ic.dice.qt.spout.RateSpout;
 import uk.ic.dice.qt.spout.RateSpout.ArrivalMode;
 import uk.ic.dice.qt.spout.RateSpout.DataMode;
 import uk.ic.dice.qt.util.LoadConfigProperties;
-import backtype.storm.Config;
-import backtype.storm.StormSubmitter;
-import backtype.storm.topology.TopologyBuilder;
-import backtype.storm.topology.IRichSpout;
+import org.apache.storm.Config;
+import org.apache.storm.StormSubmitter;
+import org.apache.storm.topology.TopologyBuilder;
+import org.apache.storm.topology.IRichSpout;
 
 public class BasicExclamationTopology {
 	public static void main(String[] args) throws Exception {
@@ -75,7 +75,7 @@ public class BasicExclamationTopology {
 		Config conf = new Config();
 		conf.setDebug(true); // this is to get debugging information in logs
 		conf.setNumWorkers(1);    
-		conf.registerMetricsConsumer( backtype.storm.metric.LoggingMetricsConsumer.class, 1);
+		conf.registerMetricsConsumer( org.apache.storm.metric.LoggingMetricsConsumer.class, 1);
 		StormSubmitter.submitTopology("topology-qt", conf, builder.createTopology());
 
 	}

@@ -14,14 +14,14 @@ import org.slf4j.LoggerFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
 
-import static backtype.storm.utils.Utils.tuple;
-import backtype.storm.spout.SpoutOutputCollector;
-import backtype.storm.task.TopologyContext;
-import backtype.storm.topology.OutputFieldsDeclarer;
-import backtype.storm.topology.base.BaseRichSpout;
-import backtype.storm.tuple.Fields;
-import backtype.storm.tuple.Values;
-import backtype.storm.utils.Utils;
+import static org.apache.storm.utils.Utils.tuple;
+import org.apache.storm.spout.SpoutOutputCollector;
+import org.apache.storm.task.TopologyContext;
+import org.apache.storm.topology.OutputFieldsDeclarer;
+import org.apache.storm.topology.base.BaseRichSpout;
+import org.apache.storm.tuple.Fields;
+import org.apache.storm.tuple.Values;
+import org.apache.storm.utils.Utils;
 
 public class RateSpout extends BaseRichSpout{
 
@@ -52,10 +52,12 @@ public class RateSpout extends BaseRichSpout{
 	String dataFile;
 	String timeField;
 	int dataVol;
+	double rateScaler;
 	private static final Logger LOG = LoggerFactory.getLogger(RateSpout.class);
 
 	/* initialize spout for manual configuration */
 	public RateSpout() {
+		setRateScaler(1.0);
 	}
 
 	/* send 1k of random text at inter-arrival times specified in the given file */
@@ -64,6 +66,7 @@ public class RateSpout extends BaseRichSpout{
 		setArrivalFile( _arvfname);
 		setDataMode(DataMode.ParseJSON);
 		setDataVolume(1024); //1kB
+		setRateScaler(1.0);
 	}
 
 	/* send specified amount of random text at inter-arrival times specified in the given file */
@@ -71,11 +74,17 @@ public class RateSpout extends BaseRichSpout{
 		setArrivalMode(ArrivalMode.RandIat);
 		setArrivalFile( _arvfname);
 		setDataMode(DataMode.RandText);
+		setRateScaler(1.0);
 	}
 
+	public void setRateScaler(double _scale) {
+		this.rateScaler = _scale;
+	}
+	
 	public void setTimeField(String _field) {
 		this.timeField = _field;
 	}
+	
 	public String getTimeField() {
 		return this.timeField;
 	}
@@ -226,21 +235,21 @@ public class RateSpout extends BaseRichSpout{
 
 		switch (getArrivalMode()) {
 		case ParseIat: {
-			Utils.sleep(iatList.get(arvCursor++));		
+			Utils.sleep((long)((double)iatList.get(arvCursor++)/rateScaler));		
 			if (arvCursor == iatList.size()) { arvCursor = 0;} // read the iat list cyclically
 		} break;
 		case RandIat: {
 			Random r = new Random();
-			Utils.sleep((long)(r.nextDouble()*1000));
+			Utils.sleep((long)((double)(r.nextDouble()*1000)/rateScaler));
 		} break;
 		case RandIatExp: {
 			Random r = new Random();
 			long t = (long)(-(1/1000) * Math.log(r.nextDouble()));
 			if (t>1000) { t=1000;}
-			Utils.sleep(t);
+			Utils.sleep((long)((double)t/rateScaler));
 		} break;
 		case ParseRate: {
-			Utils.sleep(iatList.get(arvCursor++));		
+			Utils.sleep((long)((double)iatList.get(arvCursor++)/rateScaler));		
 			if (arvCursor == iatList.size()) { arvCursor = 0;} // read the iat list cyclically
 			String sentence = RandomStringUtils.randomAlphanumeric(volList.get(dataCursor++));
 			if (dataCursor == volList.size()) { dataCursor = 0;} // read the vol list cyclically
@@ -248,7 +257,7 @@ public class RateSpout extends BaseRichSpout{
 			return;
 		}
 		case ParseCount: {
-			Utils.sleep(iatList.get(arvCursor++));		
+			Utils.sleep((long)((double)iatList.get(arvCursor++)/rateScaler));
 			if (arvCursor == iatList.size()) { arvCursor = 0;} // read the iat list cyclically
 			int count = volList.get(cntCursor++);
 			if (cntCursor == volList.size()) { cntCursor = 0;} // read the vol list cyclically
@@ -333,7 +342,7 @@ public class RateSpout extends BaseRichSpout{
 				targetIat = 0;
 			}
 			LOG.debug("new timestamp: " + bDoc.getLong(getTimeField()) + " last timestamp: " + lastTimestamp + " target iat: " + targetIat);
-			Utils.sleep(targetIat);
+			Utils.sleep((long)((double) targetIat/rateScaler));
 			lastTimestamp = bDoc.getLong(getTimeField());
 			collector.emit(tuple(bDoc.toString()),msgId);
 		}
