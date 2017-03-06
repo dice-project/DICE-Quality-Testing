@@ -45,7 +45,7 @@ public class DMONBoltCapacityMonitor {
 		return maxcapacity;		
 	}
 
-	public static double getDMONkey(String url , String t0, String t1, int maxDMONRecords) throws Exception {
+	public static double getMaxCapacity(String url , String t0, String t1, int maxDMONRecords) throws Exception {
 		double maxcapacity = 0;
 		URL object = new URL(url + "/dmon/v1/observer/query/json");
 
@@ -92,7 +92,7 @@ public class DMONBoltCapacityMonitor {
 			System.out.println(t1);
 			t1 = "2017-03-04T12:20:00.000Z";
 			int maxDMONRecords = 100;			
-			double maxcapacity = getDMONkey("http://109.231.122.229:5001", t0, t1, maxDMONRecords);
+			double maxcapacity = getMaxCapacity("http://109.231.122.229:5001", t0, t1, maxDMONRecords);
 			System.out.println("Max Bolt Capacity: "+maxcapacity);
 		}
 		catch (Exception e) {

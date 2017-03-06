@@ -11,7 +11,7 @@ import org.json.JSONObject;
 /*
 curl -H "Content-Type: application/json" -XPOST http://109.231.122.229:5001/dmon/v1/observer/query/json -d '{"DMON":{"fname":"output","ordering":"desc","queryString":"NOT _type=collectd","size": 100,"tstart":"2017-03-04T12:19:30.000Z","tstop":"2017-03-04T12:20:00.000Z"}}'
  */
-public class BoltCapacityMonitor {
+public class StormUICapacityMonitor {
 	public static List<String> DMONkeys = Arrays.asList("capacity");
 
 	public static double recurJSON(JSONObject jsonObj) {
@@ -19,24 +19,16 @@ public class BoltCapacityMonitor {
 		Iterator<?> keys = jsonObj.keys();
 		while( keys.hasNext() ) {
 			String key = (String)keys.next();		    
-			if ( jsonObj.get(key) instanceof JSONObject ) {
-				JSONObject o = (JSONObject) jsonObj.get(key);
-
-				for (String pattern : DMONkeys) {				
-					if (o.has(pattern)) {
-						//System.out.println(pattern + ":"+ o.get(pattern).toString());
-						maxcapacity = Double.max(maxcapacity,Double.parseDouble(o.get(pattern).toString()));
-					}
-				}				
-				maxcapacity = Double.max(maxcapacity, recurJSON(o));
-			}
-			else if ( jsonObj.get(key) instanceof JSONArray ) {
+			if ( jsonObj.get(key) instanceof JSONArray ) {
 				JSONArray a = (JSONArray) jsonObj.get(key);
+
 				List<String> list = new ArrayList<>();		    	
 				for (int i=0; i<a.length(); i++) {
-					//System.out.println("\nA: " + a.get(i).toString());
 					if (a.get(i) instanceof JSONObject) {
-						maxcapacity = Double.max(maxcapacity,recurJSON((JSONObject)a.getJSONObject(i)));
+						JSONObject y = (JSONObject)a.getJSONObject(i);
+						if (y.has("capacity")){
+							maxcapacity = Double.max(maxcapacity, new Double(y.getString("capacity")));
+						}
 					}
 				}
 
@@ -45,10 +37,50 @@ public class BoltCapacityMonitor {
 		return maxcapacity;		
 	}
 
-	public static double getkey(String url , String t0, String t1, int maxDMONRecords) throws Exception {
-		double maxcapacity = 0;
-		URL object = new URL(url + "/api/v1/topology/topology-qt?window=600");
+	public static String getId(String url, String topologyName) throws Exception {
+		// obtained the Id of a topology given its name using the Storm UI
+		String encodedId = new String("");
+		URL object = new URL(url + "/api/v1/topology/summary");
 
+		HttpURLConnection con = (HttpURLConnection) object.openConnection();
+		con.setDoOutput(true);
+		con.setDoInput(true);
+		con.setRequestProperty("Content-Type", "application/json");
+		con.setRequestProperty("Accept", "application/json");
+		con.setRequestMethod("GET");
+
+		StringBuilder sb = new StringBuilder();  
+		int HttpResult = con.getResponseCode(); 
+		if (HttpResult == HttpURLConnection.HTTP_OK) {
+			BufferedReader br = new BufferedReader(
+					new InputStreamReader(con.getInputStream(), "utf-8"));
+			String line = null;  
+			while ((line = br.readLine()) != null) {  
+				sb.append(line + "\n");  
+			}
+			br.close();			
+			JSONObject jsonObj = new JSONObject("" + sb.toString());		
+			JSONArray a = (JSONArray) jsonObj.get("topologies");
+			List<String> list = new ArrayList<>();		    	
+			for (int i=0; i<a.length(); i++) {
+				if (a.get(i) instanceof JSONObject) {
+					JSONObject jsonTopology = (JSONObject) a.get(i);
+					if (jsonTopology.get("name").equals(topologyName)) {
+						encodedId = jsonTopology.get("encodedId").toString();
+					}
+				}
+			}
+
+		} else {
+			System.out.println(con.getResponseMessage());  
+		}
+		return encodedId;
+	}
+
+	public static double getMaxCapacity(String url, String encodedId) throws Exception {
+		double maxcapacity = 0;
+		URL object = new URL(url + "/api/v1/topology/" + encodedId);
+		
 		HttpURLConnection con = (HttpURLConnection) object.openConnection();
 		con.setDoOutput(true);
 		con.setDoInput(true);
@@ -68,6 +100,7 @@ public class BoltCapacityMonitor {
 				sb.append(line + "\n");  
 			}
 			br.close();
+			
 			JSONObject jsonObj = new JSONObject("" + sb.toString());
 			maxcapacity = recurJSON(jsonObj);
 		} else {
@@ -78,16 +111,10 @@ public class BoltCapacityMonitor {
 
 	// http://localhost:8080/RESTfulExample/json/product/get
 	public static void main(String[] args) {
-		try {			
-			String t0 = "2017-03-04T12:19:30.000Z";
-			String timeStampDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-			String timeStampTime = new SimpleDateFormat("HH:mm:ss.000").format(new Date());
-			String t1 = timeStampDate + "T"+ timeStampTime + "Z";
-			System.out.println(t1);
-			t1 = "2017-03-04T12:20:00.000Z";
-			int maxDMONRecords = 100;			
-			double maxcapacity = getkey("http://localhost:8080", t0, t1, maxDMONRecords);
-			System.out.println("Max Bolt Capacity: "+maxcapacity);
+		try {						
+			String encodedId = getId("http://localhost:8080", "topology-qt1");
+			double maxcapacity = getMaxCapacity("http://localhost:8080", encodedId);
+			System.out.println("Max Bolt Capacity (StormUI, topology="+encodedId+"): "+maxcapacity);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
