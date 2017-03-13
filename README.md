@@ -3,7 +3,7 @@
 
 The DICE quality testing tool is a load generator for streaming workloads that can be used to validity the performance and scalability of stream-based applications.
 
-The tool is composed of two modules: QT-GEN, provided under the *Gen* folder, and QT-LIB, under the *Lib* folder. 
+The tool is composed of two modules: QT-GEN, provided under the *qt-gen* folder, and QT-LIB, under the *qt-lib* folder. 
 
 QT-GEN is a tool for generation of traces that are statistically similar to a given JSON trace, but nevertheless non-identical. For example, it is possible to change the volumes of timestamped JSON message as desired and differently across types of messages (e.g., in Twitter data one may scale differently the volumes of tweets and the volumes of retweets). MATLAB sources are also included in the distribution of QT-GEN.
 
