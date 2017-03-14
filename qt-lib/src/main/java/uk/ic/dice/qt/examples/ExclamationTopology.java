@@ -133,8 +133,9 @@ public class ExclamationTopology {
 			timeStampTime = new SimpleDateFormat("HH:mm:ss.000").format(new Date());
 			String tEnd = timeStampDate + "T"+ timeStampTime + "Z";		
 			int maxDMONRecords = 100;
-			String DMONurl = "http://109.231.122.229:5001"; // to configure as needed
-			curMaxBoltCapacity = DMONBoltCapacityMonitor.getMaxCapacity(DMONurl, tStart, tEnd, maxDMONRecords); 
+			String DMONurl = "http://0.0.0.0:5001"; // to configure as needed
+			// uncomment the next lines to enable DMON-based monitoring
+			/*curMaxBoltCapacity = DMONBoltCapacityMonitor.getMaxCapacity(DMONurl, tStart, tEnd, maxDMONRecords); 
 			System.out.println("Max Bolt Capacity (DMON," + "Topology: " + topologyId + " Start: " + tStart + " End: " + tEnd +"): "+curMaxBoltCapacity);			
 			
 			
@@ -142,6 +143,7 @@ public class ExclamationTopology {
 				System.out.println("Current bolt capacity is "+ curMaxBoltCapacity + " and exceeds the maximum bolt capacity: " + maxBoltCapacity + " STOPPING experiment.");
 				return;
 			}
+			*/
 		}
 	}
 }
