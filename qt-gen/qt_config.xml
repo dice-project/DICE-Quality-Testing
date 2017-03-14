@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<qt>   
+    <dataset>
+        <parameter type='jsonFileName' value='wc2014-100.json' />
+        <parameter type='nMessages' value='100' />        
+        <parameter type='newJSONFileName' value='wc2014-generated.json' />
+        <parameter type='tsField' value='publicationTime' />
+        <parameter type='clField' value='original' />
+        <parameter type='isNumeric' value='1' />
+        <parameter type='speedUp' value='1' />
+    </dataset>
+</qt>

@@ -30,14 +30,15 @@ end
 fprintf(fout,'done.\n')
 
 fprintf(fout,'QT-GEN: fitting class timestamps...\n')
+T = [ts(:),class(:)];
+T = sortrows(T,1); % sort by timestamp
+mtrace = m3afit_init([0;diff(T(:,1))],T(:,2)); % determine inter-event times
 try
-    T = [ts(:),class(:)]; 
-    T = sortrows(T,1); % sort by timestamp
-    mtrace = m3afit_init([0;diff(T(:,1))],T(:,2)); % determine inter-event times
     M = m3afit_auto(mtrace,'NumStates',2,'Method',1); % fit the marked MAP
     fprintf(fout,'QT-GEN: %d class timestamps fitted.\n',length(unique(class)))
 catch me
-    fprintf(fout,'QT-GEN: class timestamps fitting failed - aborting. Try shorterning the trace.\n')
+    fprintf(fout,'QT-GEN: %d class timestamps fitted failed. Aborting.\n')
+    return
 end
 
 fprintf(fout,'QT-GEN: scaling trace rates (speedup=%d)',speedUpFactor)
