@@ -1,0 +1,8 @@
+The original version of kafka-perf-tools can be obtained from: https://github.com/jkorab/ameliant-tools
+Checkout: 19-June-2017
+
+Main changes compared to the original version:
+- FileDriver loads from an InputStream instantiated from a resource local to the jar
+- FileDriver can load a single message or a sequence of messages (one-by-one)
+- ProducerDriver can repeat a single message or a sequence of messages, cycling from the beginning when the sequence has been completed.
+
