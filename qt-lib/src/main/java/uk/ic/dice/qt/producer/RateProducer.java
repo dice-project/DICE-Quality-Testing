@@ -30,7 +30,7 @@ public class RateProducer {
 	/* initialize kafka producer for manual configuration */
 	public RateProducer() {
 		numWorkers = 1;
-		messageCount = 3;
+		messageCount = 1;
 		messageSize = 1024;
 		//		testProfileDefinition = new TestProfileDefinition();
 		prodDef = new ProducerDefinition();
