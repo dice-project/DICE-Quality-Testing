@@ -5,6 +5,7 @@
 	<groupId>com.github.dice-project</groupId>
 	<artifactId>qt-lib</artifactId>
 	<version>1.0.0</version>
+	<description>DICE Quality Testing tool</description>
 	<packaging>jar</packaging>
 
 	<name>qt-lib</name>
@@ -18,10 +19,53 @@
 		</license>
 	</licenses>
 
+	<scm>
+		<url>https://github.com/dice-project/DICE-Quality-Testing/qt-lib</url>
+	</scm>
+
+   <organization>
+        <name>DICE Project</name>
+        <url>http://www.dice-h2020.eu</url>
+    </organization>
+
+   <developers>
+        <developer>
+            <id>gcasale</id>
+            <name>Giuliano Casale</name>
+            <email>g.casale@imperial.ac.uk</email>
+            <url>http://wp.doc.ic.ac.uk/gcasale</url>
+            <organization>DICE Project</organization>
+            <organizationUrl>http://www.dice-h2020.eu</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+    </developers>
+
+<!---
+<distributionManagement>
+  <snapshotRepository>
+    <id>ossrh</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  </snapshotRepository>
+  <repository>
+    <id>ossrh</id>
+    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+  </repository>
+</distributionManagement>
+-->
+<distributionManagement>
+  <snapshotRepository>
+    <id>ossrh</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  </snapshotRepository>
+</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gpg.keyname>BB332ADD</gpg.keyname>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -178,6 +222,31 @@
 				</executions>
 			</plugin>
 			<plugin>
+		        	<groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-gpg-plugin</artifactId>
+			        <executions>
+			         <execution>
+			            <id>sign-artifacts</id>
+				    <phase>verify</phase>
+			            <goals>
+			            	<goal>sign</goal>
+		        	    </goals>
+			        </execution>
+ 			       </executions>
+ 		      </plugin>
+<!--
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-release-plugin</artifactId>
+    <version>2.5.3</version>
+    <configuration>
+    <mavenExecutorId>forked-path</mavenExecutorId>
+    <useReleaseProfile>false</useReleaseProfile>
+    <arguments>-Psonatype-oss-release</arguments>
+    </configuration>
+    </plugin>
+-->
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
@@ -186,6 +255,43 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+			      <groupId>org.sonatype.plugins</groupId>
+			      <artifactId>nexus-staging-maven-plugin</artifactId>
+			      <version>1.6.7</version>
+			      <extensions>true</extensions>
+			      <configuration>
+			      	<serverId>ossrh</serverId>
+				<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+				<autoReleaseAfterClose>true</autoReleaseAfterClose>
+			      </configuration>
+			</plugin>
+<plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-source-plugin</artifactId>
+      <version>2.2.1</version>
+      <executions>
+        <execution>
+          <id>attach-sources</id>
+          <goals>
+            <goal>jar-no-fork</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+      <version>2.9.1</version>
+      <executions>
+        <execution>
+          <id>attach-javadocs</id>
+          <goals>
+            <goal>jar</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
 		</plugins>
 	</build>
 
