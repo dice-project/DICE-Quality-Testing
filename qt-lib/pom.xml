@@ -207,7 +207,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>uk.ic.dice.qt.examples.ExclamationTopology</mainClass>
+							<mainClass>com.github.dice-project.qt.examples.ExclamationTopology</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
