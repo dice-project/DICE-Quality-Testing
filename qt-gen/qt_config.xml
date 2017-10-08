@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <qt>   
     <dataset>
+        <parameter type='technology' value='storm' />
         <parameter type='jsonFileName' value='wc2014-100.json' />
         <parameter type='nMessages' value='100' />        
         <parameter type='newJSONFileName' value='wc2014-generated.json' />

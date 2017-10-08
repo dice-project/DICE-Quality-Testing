@@ -1,4 +1,13 @@
-function qt_gen(JSONFileName,newJSONFileName,nSamples,timeStampField,classField,isClassFieldNumeric,speedUpFactor)
+function qt_gen(config_parameters)
+technology = config_parameters.technology;
+JSONFileName = config_parameters.jsonFileName;
+nSamples = str2double(config_parameters.nMessages);
+newJSONFileName = config_parameters.newJSONFileName;
+timeStampField = config_parameters.tsField;
+classField = config_parameters.clField;
+isClassFieldNumeric = str2double(config_parameters.isNumeric);
+speedUpFactor = str2double(config_parameters.speedUp);
+
 fout = 1;
 fprintf(fout,'QT-GEN: loading JSON file... ')
 messages = loadjson(JSONFileName);

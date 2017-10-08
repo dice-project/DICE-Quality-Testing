@@ -5,10 +5,10 @@ if ispc
     movefile qt_gen_main.exe qtgen.exe
     movefile readme.txt readme-win.txt
     delete requiredMCRProducts.txt
+    cd(curdir);
+    movefile ../qt-gen/qtgen.exe .
+    movefile ../qt-gen/readme-win.txt .
 end
 if isunix
     movefile readme.txt readme-x86_64.txt
 end
-cd(curdir);
-movefile ../qt-gen/qtgen.exe .
-movefile ../qt-gen/readme-win.txt .

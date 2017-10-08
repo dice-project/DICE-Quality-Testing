@@ -75,12 +75,9 @@ function config_parameters = getValues(theStruct)
 % Get parameter values from the parsed file and join them into the cell
 % array
 
-config_parameters = {};
-k=1;
-
+config_parameters = struct();
 for i=2:2:length(theStruct.Children(2).Children)
-    
-    config_parameters{k} = theStruct.Children(2).Children(i).Attributes(2).Value;
-    k=k+1;
-    
+    type = theStruct.Children(2).Children(i).Attributes(1).Value;
+    value = theStruct.Children(2).Children(i).Attributes(2).Value;
+    config_parameters.(type) = value;
 end
