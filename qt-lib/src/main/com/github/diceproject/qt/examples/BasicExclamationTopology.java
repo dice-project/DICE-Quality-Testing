@@ -1,14 +1,14 @@
-package com.github.dice_project.qt.examples;
+package com.github.diceproject.qt.examples;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.github.dice_project.qt.QTLoadInjector;
-import com.github.dice_project.qt.spout.RateSpout;
-import com.github.dice_project.qt.spout.RateSpout.ArrivalMode;
-import com.github.dice_project.qt.spout.RateSpout.DataMode;
-import com.github.dice_project.qt.util.LoadConfigProperties;
+import com.github.diceproject.qt.QTLoadInjector;
+import com.github.diceproject.qt.spout.RateSpout;
+import com.github.diceproject.qt.spout.RateSpout.ArrivalMode;
+import com.github.diceproject.qt.spout.RateSpout.DataMode;
+import com.github.diceproject.qt.util.LoadConfigProperties;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.topology.TopologyBuilder;

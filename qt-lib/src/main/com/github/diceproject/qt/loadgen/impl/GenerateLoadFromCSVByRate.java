@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.loadgen.impl;
+package com.github.diceproject.qt.loadgen.impl;
 //author: yifan
 
 import java.io.BufferedReader;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.github.dice_project.qt.util.UniformDistribution;
+import com.github.diceproject.qt.util.UniformDistribution;
 
 
 public class GenerateLoadFromCSVByRate {

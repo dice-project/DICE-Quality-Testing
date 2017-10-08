@@ -1,11 +1,11 @@
-package com.github.dice_project.qt.util;
+package com.github.diceproject.qt.util;
 //author: yifan
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import com.github.dice_project.qt.util.PropertiesFromXML;
+import com.github.diceproject.qt.util.PropertiesFromXML;
 
 
 public class LoadConfigProperties {

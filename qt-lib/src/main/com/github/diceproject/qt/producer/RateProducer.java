@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.producer;
+package com.github.diceproject.qt.producer;
 
 import com.ameliant.tools.kafka.perftool.config.*;
 import com.ameliant.tools.kafka.perftool.drivers.ConsumerDriver;

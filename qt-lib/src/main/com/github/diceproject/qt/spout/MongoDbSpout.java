@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.spout;
+package com.github.diceproject.qt.spout;
 
 import java.net.UnknownHostException;
 import java.util.Map;

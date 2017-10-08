@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.util;
+package com.github.diceproject.qt.util;
 //author: yifan
 
 import java.util.Random;

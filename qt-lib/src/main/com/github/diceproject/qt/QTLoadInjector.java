@@ -1,7 +1,7 @@
-package com.github.dice_project.qt;
+package com.github.diceproject.qt;
 
-import com.github.dice_project.qt.producer.*;
-import com.github.dice_project.qt.spout.*;
+import com.github.diceproject.qt.producer.*;
+import com.github.diceproject.qt.spout.*;
 
 public class QTLoadInjector {
 

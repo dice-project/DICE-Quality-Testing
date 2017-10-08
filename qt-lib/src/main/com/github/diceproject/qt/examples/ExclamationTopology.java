@@ -1,14 +1,14 @@
-package com.github.dice_project.qt.examples;
+package com.github.diceproject.qt.examples;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.dice_project.qt.QTLoadInjector;
-import com.github.dice_project.qt.spout.RateSpout;
-import com.github.dice_project.qt.spout.RateSpout.ArrivalMode;
-import com.github.dice_project.qt.spout.RateSpout.DataMode;
+import com.github.diceproject.qt.QTLoadInjector;
+import com.github.diceproject.qt.spout.RateSpout;
+import com.github.diceproject.qt.spout.RateSpout.ArrivalMode;
+import com.github.diceproject.qt.spout.RateSpout.DataMode;
 
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
@@ -20,7 +20,7 @@ import org.apache.storm.generated.StormTopology;
 import org.apache.storm.utils.NimbusClient;
 import org.apache.storm.utils.Utils;
 
-import com.github.dice_project.qt.util.*;
+import com.github.diceproject.qt.util.*;
 
 public class ExclamationTopology {
 

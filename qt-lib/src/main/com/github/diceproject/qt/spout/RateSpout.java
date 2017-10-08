@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.spout;
+package com.github.diceproject.qt.spout;
 
 import java.io.IOException;
 import java.io.InputStream;

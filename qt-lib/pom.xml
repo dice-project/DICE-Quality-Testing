@@ -195,7 +195,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>com.github.dice_project.qt.examples.KafkaRateSpout</mainClass>
+							<mainClass>com.github.diceproject.qt.examples.KafkaRateSpout</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

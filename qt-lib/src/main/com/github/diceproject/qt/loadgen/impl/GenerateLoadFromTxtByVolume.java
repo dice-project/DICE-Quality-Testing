@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.loadgen.impl;
+package com.github.diceproject.qt.loadgen.impl;
 //author: yifan
 
 import java.io.BufferedReader;

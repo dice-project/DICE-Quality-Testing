@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.loadgen;
+package com.github.diceproject.qt.loadgen;
 // author: yifan
 
 import java.util.Map;

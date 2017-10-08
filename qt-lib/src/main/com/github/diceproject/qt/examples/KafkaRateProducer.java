@@ -1,7 +1,7 @@
-package com.github.dice_project.qt.examples;
+package com.github.diceproject.qt.examples;
 
-import com.github.dice_project.qt.QTLoadInjector;
-import com.github.dice_project.qt.producer.RateProducer;
+import com.github.diceproject.qt.QTLoadInjector;
+import com.github.diceproject.qt.producer.RateProducer;
 
 public class KafkaRateProducer {
 	

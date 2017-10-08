@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.logs;
+package com.github.diceproject.qt.logs;
 //author: yifan
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.examples;
+package com.github.diceproject.qt.examples;
 
 
 import java.util.Map;

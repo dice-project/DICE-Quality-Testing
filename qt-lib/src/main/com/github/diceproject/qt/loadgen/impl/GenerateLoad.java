@@ -1,4 +1,4 @@
-package com.github.dice_project.qt.loadgen.impl;
+package com.github.diceproject.qt.loadgen.impl;
 //author: yifan
 
 import java.io.BufferedWriter;
@@ -6,10 +6,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.Map;
 
-import com.github.dice_project.qt.loadgen.LoadGeneratorInterface;
-import com.github.dice_project.qt.util.ExtractDevision;
-import com.github.dice_project.qt.util.RandomBinary;
-import com.github.dice_project.qt.util.RandomWordsString;
+import com.github.diceproject.qt.loadgen.LoadGeneratorInterface;
+import com.github.diceproject.qt.util.ExtractDevision;
+import com.github.diceproject.qt.util.RandomBinary;
+import com.github.diceproject.qt.util.RandomWordsString;
 
 
 public class GenerateLoad implements LoadGeneratorInterface {
