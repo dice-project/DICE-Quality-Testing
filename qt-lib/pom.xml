@@ -4,7 +4,7 @@
 
 	<groupId>com.github.dice-project</groupId>
 	<artifactId>qt-lib</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<description>DICE Quality Testing tool</description>
 	<packaging>jar</packaging>
 
